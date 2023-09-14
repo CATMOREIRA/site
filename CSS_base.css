@@ -1,0 +1,43 @@
+body{
+    margin: auto;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+div.fundo{
+	background-image: url("imagens/fundo.jpg");
+	width: 100vw;
+	height: 100vh;
+}
+div.centro{
+	width: 100vw;
+    height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center
+}
+div.com, div.sem{
+	width: 90%;
+	margin: auto;
+    text-align: center;
+    background-color:rgba(249,238,199,0.80);
+    border: 2px lightslategray solid;
+    padding: 3px 0px;
+}
+a{
+    text-decoration: none;
+    font-size: 30px;
+    color: black;
+    padding: 10px;
+    
+}
+div.sem:hover, div.com{
+    color: lightslategray;
+    background-color: rgba(45,47,63,0.70);
+    
+}
+a:hover, a.com{
+    text-decoration: underline;
+    text-decoration-color: white;
+    color: white;
+}

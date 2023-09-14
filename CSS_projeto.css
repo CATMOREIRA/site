@@ -1,0 +1,149 @@
+body{
+    margin: auto;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+div.fundo{
+	background-image: url("imagens/fundo.jpg");
+}
+div.com, div.sem{
+	width: 90%;
+	margin: auto;
+    text-align: center;
+    background-color:rgba(249,238,199,0.80);
+    border: 2px lightslategray solid;
+    padding: 3px 0px;
+}
+a{
+    text-decoration: none;
+    font-size: 30px;
+    color: black;
+    padding: 10px;
+    
+}
+div.sem:hover, div.com{
+    color: lightslategray;
+    background-color: rgba(45,47,63,0.70);
+    
+}
+a:hover, a.com{
+    text-decoration: underline;
+    text-decoration-color: white;
+    color: white;
+}
+div.principal{
+    width: 90%;
+    margin: auto;
+    background-color: rgba(55,74,99,0.70);
+    padding: 10px 10px;
+    color:black;
+    text-align: left;
+}
+
+div.map{
+    width: 100%; 
+    height: 550px;
+}
+h2{
+    text-decoration-color: white;
+    color: white;
+    text-align: center;   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+---------------------*********************----------------------
+Contactos fixed
+*/
+
+div.contactos
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.pos
+{
+    width: 100px;
+    height: 100px;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 10px;
+}
+i.fa
+{
+    font-size: 44px;
+}
+#fb
+{
+    color: #006fff;
+    text-shadow: 0 0 30px #006fff;
+}
+#ig
+{
+    color: #ff5f40;
+    text-shadow: 0 0 30px #ff5f40;
+}
+#gm
+{
+    color: #00acff;
+    text-shadow: 0 0 30px #00acff;
+}
+#in
+{
+    color: #00acff;
+    text-shadow: 0 0 30px #00acff;
+}
+.pos.fb-btn
+{
+    box-shadow: 0 20px 20px -17px rgba(0,111,255,0.53);
+}
+.pos.fb-btn:hover
+{
+    transform: scale(1.2);
+    box-shadow: 0 30px 45px -15px rgba(0,111,255,0.65);
+}
+.pos.ig-btn
+{
+    box-shadow: 0 20px 20px -17px rgba(255,16,39,0.5);
+}
+.pos.ig-btn:hover
+{
+    transform: scale(1.2);
+    box-shadow: 0 30px 45px -15px rgba(255,16,39,0.57);
+}
+.pos.gg-btn
+{
+    box-shadow: 0 20px 20px -17px rgba(0,255,255,0.53);
+}
+.pos.gg-btn:hover
+{
+    transform: scale(1.2);
+    box-shadow: 0 30px 45px -15px rgba(0,111,255,0.6);
+}
+.pos.in-btn
+{
+    box-shadow: 0 20px 20px -17px rgba(0,255,255,0.53);
+}
+.pos.in-btn:hover
+{
+    transform: scale(1.2);
+    box-shadow: 0 30px 45px -15px rgba(0,111,255,0.6);
+}

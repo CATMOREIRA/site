@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cátia Moreira</title>
+    <link rel="stylesheet" href="CSS_projeto.css">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css"/>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="" ></script>
+</head>
+<body>
+	<div class="fundo">
+		<div class="sem">
+			<a class="sem" href="Apresentação.html">Dados Pessoais</a>
+		</div>
+		<div class="sem">
+			<a class="sem" href="PercursoAcadémico.html">Percurso Académico</a>
+		</div>
+		<div class="sem">
+			<a class="sem" href="Hobbies.html">Hobbies</a>
+		</div>
+		<div class="com">
+			<a class="com" href="Base.html">Projeto WebSIG</a>
+			<div class="principal">
+
+				<h2 class="titulo">Ciclovias e equipamentos de apoio, em Bougado.</h2>
+				  
+			
+
+
+				<div class="base">
+					<div class="div-map" >
+					  <div id="map" class="map"></div>
+					</div>
+			  
+					<!--Basemap-->
+					<script src="/leaflet/leaflet.js"></script>
+			  
+					<!--Aquivos-->
+
+					<script src="GeoJSON/bougadofreg.geojson"></script>
+					<script src="GeoJSON/ciclovias.geojson"></script>
+					<script src="GeoJSON/casasbanhogeojson.geojson"></script>
+					<script src="GeoJSON/EquipApoio.geojson"></script>
+				
+
+					<!--CSS do Cluster-->
+			  
+					<script>
+					  var map = L.map('map').setView([ 41.329586,  -8.564431], 13);
+			  
+					  //Basemap
+			  
+					  var basemap_clareado = L.tileLayer(
+						"https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+						{
+						  attribution:
+							"Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012"
+						}
+					  );
+					  var basemap2 = L.tileLayer(
+						"https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+						{
+						  attribution:
+							"Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
+						}
+					  );
+			  
+					  // Add basemap ao mapa
+			  
+					  basemap_clareado.addTo(map);
+					  basemap2.addTo(map);
+			  
+					  // Camadas
+			  
+
+					  // Area estudo
+
+					  var freg = L.geoJson(freg, {
+						onEachFeature: function (feature, layer) {
+						  layer.bindPopup(
+							"<br/><b>Concelho: Trofa</b>" +
+							  "<br/><b>Freguesia: Bougado </b>"
+						  );
+						}
+					  });
+
+					  // ciclovias
+
+					  var ciclovias = L.geoJson(ciclovias, {
+						
+						style: {
+        					color: 'blue', // Define a cor base para as linhas
+							weight: 3 // Define a espessura da linha
+						},
+
+						onEachFeature: function (feature, layer) {
+						  var ano = feature.properties.Ano;
+						  var comp = feature.properties.Compr;
+						  var tp = feature.properties.Pavimento;
+						  layer.bindPopup(
+							"<br/><b>Ano Construção: </b>" +
+							  ano +
+							  "<br/><b>Comprimento: </b>" +
+							  comp + " m" + 
+							  "<br/><b>Tipo Piso: </b>" +
+							  tp
+						  );
+						
+
+
+						layer.on('popupopen', function() {
+						// Quando a popup é aberta, aplicamos um estilo à linha
+						this.setStyle({
+							color: 'red', // Cor da linha quando selecionada
+							weight: 5 // Espessura da linha quando selecionada
+							});
+						});
+						layer.on('popupclose', function() {
+						// Quando a popup é aberta, aplicamos um estilo à linha
+						this.setStyle({
+							color: 'blue', // Cor da linha quando selecionada
+							weight: 3 // Espessura da linha quando selecionada
+							});
+						});
+						}
+					  });
+					  
+
+
+					// Equipamentos Apoio - FALTAAAAAAAAAA
+					var equip = L.geoJson(equip, {
+
+						pointToLayer: function (feature, latlng) {
+        			var tipo = feature.properties.Tipo; // Supondo que "tipo" é o nome do atributo
+
+					var imageUrl;
+						if (tipo === "Bebedouro") {
+							imageUrl = 'IMG_GJ/beb.png';
+						} else if (tipo === 'Campo Multidesportivo') {
+							imageUrl = 'IMG_GJ/campo.png';
+						} else if (tipo === 'Bicicletas') {
+							imageUrl = 'IMG_GJ/bicl.png';
+						} else {
+							imageUrl = 'IMG_GJ/exerc.png'; // Ícone padrão para outros tipos
+						}
+
+						var customIcon = L.icon({
+							iconUrl: imageUrl,
+							iconSize: [20, 20],
+							iconAnchor: [0, 0],
+							popupAnchor: [0, -10]
+						});
+
+						return L.marker(latlng, { icon: customIcon });
+					},
+
+						onEachFeature: function (feature, layer) {
+							var tipo = feature.properties.Tipo;
+						  layer.bindPopup(
+							"<br/><b>Tipo Equipamento: </b>" +
+							tipo
+						  );
+						}
+					  });
+
+
+
+
+
+					  // CASAS BANHO FALTA
+
+
+					  
+					var cb = L.geoJson(cb, {
+						pointToLayer: function (feature, latlng) {
+							var customIcon = L.icon({
+								iconUrl: 'IMG_GJ/wc.png',
+								iconSize: [20, 20],
+								iconAnchor: [0, 0],
+								popupAnchor: [0, -10],
+								
+
+							});
+
+							return L.marker(latlng, { icon: customIcon });
+						},
+
+						onEachFeature: function (feature, layer) {
+							var def = feature.properties.Deficiente;
+							var fem = feature.properties.Feminino;
+							var mas = feature.properties.Masculino;
+						  layer.bindPopup(
+							"<br/><b>Deficientes: </b>" +
+								def +
+							  "<br/><b>Feminino: </b>" + 
+								fem + 
+							  "<br/><b>Masculino: </b>" + 
+							  	mas
+						  );
+						  layer.on({
+							mouseover(ev) {
+								layer.openPopup(ev.latlng);
+							},
+							mouseout() {
+								layer.closePopup();
+							},
+						});
+						}
+					  });
+					
+
+
+
+
+					  //CLUSTER
+			  
+					  var baselayers = {
+						"Basemap 1": basemap_clareado,
+						"Basemap 2": basemap2
+					  };
+			  
+					  var overlays = {
+						"Área Estudo": freg,
+						"Ciclovias": ciclovias,
+						"Equipamentos Apoio": equip,
+						"Casas Banho": cb,
+					  };
+
+					  var layerControl = L.control.layers(baselayers, overlays).addTo(map);
+			  
+					  // Add scalebar
+			  
+					  var scale = L.control.scale();
+					  scale.addTo(map);
+			  
+					  // Add attribution
+					  map.attributionControl.addAttribution("Open Street Map").addTo(map);
+					  map.attributionControl.addAttribution("Open Topo Map").addTo(map);
+					</script>
+				  </div>
+
+			
+			
+			</div>
+		</div>
+		<div class="com">
+			<a class="com" href="Contactos.html">Contactos</a>
+			<div class="principal">
+				<div class="contactos">
+					<div class="pos fb-btn">
+
+						<a href="https://www.facebook.com/profile.php?id=100009827440294">
+							<i class="fa fa-facebook" aria-hidden="true" id="fb"></i>
+						</a>
+
+					</div>
+
+					<div class="pos ig-btn">
+
+						<a href="https://instagram.com/cat_moreira91?igshid=YTQwZjQ0NmI0OA==">
+							<i class="fa fa-instagram" aria-hidden="true" id="ig"></i>
+						</a>
+
+					</div>
+
+					<div class="pos gg-btn">
+
+						<a href="mailto:catia9189@gmail.com">
+							<i class="fa fa-envelope" aria-hidden="true" id="gm"></i>
+						</a>
+					
+					</div>
+					<div class="pos gg-btn">
+
+						<a href="https://linkedin.com/in/cátia-moreira-853853214">
+							<i class="fa fa-linkedin" aria-hidden="true" id="in"></i>
+						</a>
+					
+					</div>
+
+				</div>
+			</div>
+		</div>	
+	</div>
+</body>
+</html>
